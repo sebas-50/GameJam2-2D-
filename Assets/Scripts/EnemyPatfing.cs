@@ -4,43 +4,39 @@ using UnityEngine.AI;
 
 public class EnemyPatfing : MonoBehaviour
 {
-    // === Waypoints ===
+
     public GameObject[] waypoints;
     public GameObject[] waypointsHuir;
     private int currentWaypointIndex = 0;
 
-    // === Detección del jugador ===
     public GameObject player;
     private Transform playerTransform;
     public float Vision = 5f;
     private bool playerVisible = false;
     private bool playerDetected = false;
 
-    // === Componentes ===
+
     private NavMeshAgent navMeshAgent;
     public Transform myTransform;
     private int layerMask;
 
-    // === Gato ===
+
     public GameObject cat;
-    public Transform posOriCat;
+    public Vector3 posOriCat;
     private CatGrabber catGrabber;
     private AutomaticCatGrabbingTrigger automaticCatGrabbingTrigger;
     public TriggerHabitacion habitacion;
 
     void Start()
     {
-        // Inicializar
+
         navMeshAgent = GetComponent<NavMeshAgent>();
         myTransform = transform;
         catGrabber = GetComponent<CatGrabber>();
         automaticCatGrabbingTrigger = GetComponent<AutomaticCatGrabbingTrigger>();
 
-        // Posición original del gato
-        if (cat != null)
-            posOriCat = cat.transform;
+        //if (cat != null) posOriCat = cat.transform;
 
-        // Configuración
         layerMask = LayerMask.GetMask("Obstacles");
         navMeshAgent.updateRotation = false;
         navMeshAgent.updateUpAxis = false;
@@ -51,13 +47,6 @@ public class EnemyPatfing : MonoBehaviour
 
     void Update()
     {
-        if (playerVisible)
-        {
-            Debug.Log("Jugador visible");
-        }
-        // ==========================================
-        // 1. DETECCIÓN DEL JUGADOR
-        // ==========================================
         if (playerTransform != null && habitacion != null && habitacion.habConPlayer)
         {
             Vector2 directionToPlayer = playerTransform.position - myTransform.position;
@@ -77,41 +66,50 @@ public class EnemyPatfing : MonoBehaviour
             playerVisible = false;
         }
 
-        // Actualizar estado de detección
-        playerDetected = playerVisible && habitacion != null && habitacion.habConPlayer;
-
-        // ==========================================
-        // 2. COMPORTAMIENTO SEGÚN ESTADO
-        // ==========================================
+        if (!playerDetected)
+        {
+            playerDetected = playerVisible && habitacion != null && habitacion.habConPlayer;
+        }
+        else if (habitacion.habConPlayer)
+        {
+            playerDetected = true;
+        }
+        else
+        {
+            playerDetected = false;
+        }
+        
         // Caso 1: Detectó al jugador Y no tiene gato → va por el gato
         if (playerDetected && catGrabber != null && !catGrabber.hasCat && cat != null)
         {
-            // Activar el collider del trigger si estaba desactivado
             if (automaticCatGrabbingTrigger != null)
             {
                 automaticCatGrabbingTrigger.GetComponent<Collider2D>().enabled = true;
             }
+            Debug.Log("Vamo a por el gato papu");
             navMeshAgent.SetDestination(cat.transform.position);
         }
         // Caso 2: Detectó al jugador Y tiene gato → huye
         else if (playerDetected && catGrabber != null && catGrabber.hasCat)
         {
             Huir();
-            // Si llegó, elegir nuevo waypoint
+            Debug.Log("Vamo a huir 1");
             if (navMeshAgent.remainingDistance < 0.5f)
             {
                 Huir();
+                Debug.Log("Vamo a huir 2");
             }
         }
         // Caso 3: No detecta al jugador Y tiene gato → vuelve a dejar el gato
         else if (!playerDetected && catGrabber != null && catGrabber.hasCat && posOriCat != null)
         {
-            navMeshAgent.SetDestination(posOriCat.position);
+            navMeshAgent.SetDestination(posOriCat);
+            Debug.Log("Vamo a devolver el gato papu");
 
-            if (Vector2.Distance(myTransform.position, posOriCat.position) < 1f)
+            if (Vector2.Distance(myTransform.position, posOriCat) < 1f)
             {
                 catGrabber.DropCatTowardsRandomDirection();
-                // Desactivar collider del trigger cuando suelta el gato
+                Debug.Log("Gato devuelto papu");
                 if (automaticCatGrabbingTrigger != null)
                 {
                     automaticCatGrabbingTrigger.GetComponent<Collider2D>().enabled = false;
@@ -122,7 +120,6 @@ public class EnemyPatfing : MonoBehaviour
         else if (waypoints != null && waypoints.Length > 0)
         {
             Patrullar();
-            // Asegurar que el collider del trigger esté activo para la próxima vez
             if (
                 automaticCatGrabbingTrigger != null
                 && !automaticCatGrabbingTrigger.GetComponent<Collider2D>().enabled
@@ -159,17 +156,15 @@ public class EnemyPatfing : MonoBehaviour
         {
             if (wp == null)
                 continue;
-
-            // Distancia desde el waypoint hasta el jugador
             float distanciaAlJugador = Vector2.Distance(
                 wp.transform.position,
                 player.transform.position
             );
 
-            // Factor aleatorio (0 a 1)
+
             float aleatorio = Random.Range(0f, 1f);
 
-            // Calcular peso: 70% distancia, 30% aleatorio
+
             float peso = (distanciaAlJugador * 0.7f) + (aleatorio * 0.3f);
 
             if (peso > mejorPeso)

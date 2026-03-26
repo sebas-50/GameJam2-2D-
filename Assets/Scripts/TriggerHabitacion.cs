@@ -6,7 +6,6 @@ public class TriggerHabitacion : MonoBehaviour
     
     void OnTriggerStay2D(Collider2D collision)
     {
-        Debug.Log("Algo está en el trigger: " + collision.gameObject.name);
     if (collision.CompareTag("Player"))
     {
         habConPlayer = true;
