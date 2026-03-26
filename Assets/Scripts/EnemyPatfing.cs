@@ -11,6 +11,8 @@ public class EnemyPatfing : MonoBehaviour
     {
        navMeshAgent = GetComponent<NavMeshAgent>(); 
        myTransform = transform;
+       navMeshAgent.updateRotation = false;
+       navMeshAgent.updateUpAxis = false;
     }
 
     // Update is called once per frame
