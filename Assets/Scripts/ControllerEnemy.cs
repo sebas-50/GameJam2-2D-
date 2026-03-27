@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,6 +6,7 @@ public class ControllerEnemy : MonoBehaviour
 {
     public GameObject player;
     public GameObject sonrojo;
+    public GameObject caricia;
     private EnemyPatfing enemyPatfing;
     private CatGrabber catGrabber;
     [SerializeField] private float distanceToPlayer;
@@ -31,4 +33,13 @@ public class ControllerEnemy : MonoBehaviour
             }
         }
     } 
+    public void CariciaActive()
+    {
+        caricia.SetActive(true);
+    }
+    public void CariciaOff()
+    {
+        caricia.SetActive(false);
+    }
+
 }
