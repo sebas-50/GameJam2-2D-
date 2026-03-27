@@ -8,6 +8,9 @@ public class ControllerEnemy : MonoBehaviour
     public GameObject sonrojo;
     public GameObject caricia;
     private EnemyPatfing enemyPatfing;
+    private AutomaticCatGrabbingTrigger catGrabberTriggerBehaviour;
+    [SerializeField] private Collider2D col;
+
     private CatGrabber catGrabber;
     [SerializeField] private float distanceToPlayer;
     [SerializeField] private float distanciaParaInteractuar = 2f;
@@ -15,6 +18,7 @@ public class ControllerEnemy : MonoBehaviour
     void Start()
     {
         enemyPatfing = GetComponent<EnemyPatfing>();
+        catGrabberTriggerBehaviour = GetComponent<AutomaticCatGrabbingTrigger>();
         catGrabber = GetComponent<CatGrabber>();
     }
     void Update()
@@ -25,7 +29,9 @@ public class ControllerEnemy : MonoBehaviour
     public void RecievePat()
     {
         enemyPatfing.enabled = false;
+        catGrabberTriggerBehaviour.enabled = false;
         catGrabber.enabled = false;
+        col.enabled = false;
         sonrojo.SetActive(true);
         CariciaActive();
     } 
