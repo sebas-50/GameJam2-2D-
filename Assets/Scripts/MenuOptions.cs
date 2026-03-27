@@ -7,6 +7,7 @@ public class MenuOptions : MonoBehaviour
     public float transitionTime = 3f;
     private float timer;
     public AudioClip audioOnClick;
+    [SerializeField] private GameObject victoryPanel;
     [SerializeField]private GameObject[] availablePanels; 
 
 
@@ -69,6 +70,16 @@ public class MenuOptions : MonoBehaviour
     {
         Time.timeScale = 1f;
     }
+
+    public void DisplayVictory()
+    {
+        foreach(GameObject i in availablePanels)
+        {
+            i.SetActive(false);
+        }
+        victoryPanel.SetActive(true);
+    }
+
 /*
     public void PlayButonSound()
     {
