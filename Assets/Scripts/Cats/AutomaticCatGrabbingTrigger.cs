@@ -14,7 +14,7 @@ public class AutomaticCatGrabbingTrigger : MonoBehaviour
     private void Start()
     {
         catGrabber = GetComponent<CatGrabber>();
-        //catGrabber.onCatUngrabbed += EnableGrabbingAfterDelay;
+        catGrabber.onCatUngrabbed += EnableGrabbingAfterDelay;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
