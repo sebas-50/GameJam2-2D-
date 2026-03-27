@@ -23,14 +23,26 @@ public class MenuOptions : MonoBehaviour
 
     public void StartGame()
     {
-        StartCoroutine(StarGameCoroutine());
+        StartCoroutine(LoadSceneCoroutine(1));
     }
 
-    private IEnumerator StarGameCoroutine()
+    public void RestartLevel()
+    {
+        StartCoroutine(LoadSceneCoroutine(SceneManager.GetActiveScene().buildIndex));
+    }
+
+    public void ReturnToMenu()
+    {
+        StartCoroutine(LoadSceneCoroutine(0));
+        Debug.Log("it got here");
+    }
+    
+
+    private IEnumerator LoadSceneCoroutine(int sceneToLoad)
     {   
-        //StartCoroutine(TurnMusicDown());
-        yield return new WaitForSeconds(transitionTime);
-        SceneManager.LoadScene(1);        
+        //StartCoroutine(TurnMusicDown());   
+        yield return new WaitForSecondsRealtime(transitionTime);
+        SceneManager.LoadScene(sceneToLoad);      
     }
 
 
@@ -42,20 +54,20 @@ public class MenuOptions : MonoBehaviour
     private IEnumerator QuitGameCoroutine()
     {   
         //StartCoroutine(TurnMusicDown());   
-        yield return new WaitForSeconds(transitionTime);
+        yield return new WaitForSecondsRealtime(transitionTime);
         Application.Quit();       
     }
 
-    public void RestartLevel()
-    {
-        StartCoroutine(RestarLevelCoroutine());
-    }
+    
 
-     private IEnumerator RestarLevelCoroutine()
-    {   
-        //StartCoroutine(TurnMusicDown());   
-        yield return new WaitForSeconds(transitionTime);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0f;
+    }
+    public void UnpauseGame()
+    {
+        Time.timeScale = 1f;
     }
 /*
     public void PlayButonSound()
