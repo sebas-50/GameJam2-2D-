@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ public class AudioManager : MonoBehaviour
     public AudioSource sfxSource;
     public AudioSource playerSource;
     public AudioSource enemySource;
-    public AudioSource emotionSource;
+    public AudioSource catSource;
     public AudioSource uiSource;
 
     [Header("Clips")]
@@ -21,7 +22,7 @@ public class AudioManager : MonoBehaviour
     public List<AudioClip> sfxClips;
     public List<AudioClip> playerClips;
     public List<AudioClip> enemyClips;
-    public List<AudioClip> emotionClips;
+    public List<AudioClip> catClips;
     public List<AudioClip> uiClips;
 
     Dictionary<string, AudioClip> musicDict;
@@ -29,7 +30,7 @@ public class AudioManager : MonoBehaviour
     Dictionary<string, AudioClip> sfxDict;
     Dictionary<string, AudioClip> playerDict;
     Dictionary<string, AudioClip> enemyDict;
-    Dictionary<string, AudioClip> emotionDict;
+    Dictionary<string, AudioClip> catDict;
     Dictionary<string, AudioClip> uiDict;
 
     void Awake()
@@ -48,7 +49,7 @@ public class AudioManager : MonoBehaviour
         sfxDict      = LoadDict(sfxClips);
         playerDict   = LoadDict(playerClips);
         enemyDict    = LoadDict(enemyClips);
-        emotionDict  = LoadDict(emotionClips);
+        catDict  = LoadDict(catClips);
         uiDict       = LoadDict(uiClips);
     }
 
@@ -121,8 +122,8 @@ public class AudioManager : MonoBehaviour
     public void PlayEnemySFX(string name)
         => PlayFromDict(enemyDict, enemySource, name);
 
-    public void PlayEmotion(string name)
-        => PlayFromDict(emotionDict, emotionSource, name);
+    public void PlayCat(string name)
+        => PlayFromDict(catDict, catSource, name);
 
     public void PlayUI(string name)
         => PlayFromDict(uiDict, uiSource, name);
@@ -136,10 +137,17 @@ public class AudioManager : MonoBehaviour
     }
 
     public void StopAmbience() => ambientSource.Stop();
+    public void StopUI() => uiSource.Stop();
 
     void PlayFromDict(Dictionary<string, AudioClip> dict, AudioSource source, string name)
     {
         if (dict.ContainsKey(name))
             source.PlayOneShot(dict[name]);
     }
+    public void ChangeVolumeWithSlider(AudioSource audioSourceToChange, float newVolume) {
+
+        newVolume = newVolume > 1f ? 1 : newVolume < 0f ? 0 : newVolume;
+        audioSourceToChange.volume = newVolume;
+    }
+    
 }

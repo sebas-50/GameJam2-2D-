@@ -8,15 +8,17 @@ public class MenuOptions : MonoBehaviour
     private float timer;
     public AudioClip audioOnClick;
     [SerializeField] private GameObject victoryPanel;
-    [SerializeField]private GameObject[] availablePanels; 
+    [SerializeField]private GameObject[] availablePanels;
 
-
+    
+    
     private void Start() {
         foreach(GameObject i in availablePanels)
         {
             i.SetActive(false);
         }
         availablePanels[0].SetActive(true);
+        // AudioManager.Instance.PlayUI("main_menu_beginning");
     }
 
 //====================================================================================
