@@ -6,13 +6,11 @@ public class MenuOptions : MonoBehaviour
 {
     public float transitionTime = 3f;
     private float timer;
-    private AudioManager _audioManager;
     [SerializeField] private GameObject victoryPanel;
     [SerializeField]private GameObject[] availablePanels;
     
     
 
-    
     
     private void Start() {
         foreach(GameObject i in availablePanels)
@@ -88,7 +86,13 @@ public class MenuOptions : MonoBehaviour
     
     public void PlayButonSound()
     {
-        _audioManager.PlayUI("button_01"); 
+        if (AudioManager.Instance == null)
+        {
+            Debug.LogWarning("No existe AudioManager en la escena.");
+            return;
+        }
+        
+        AudioManager.Instance.PlayUI("button_01"); 
     }
 
 /*
