@@ -5,16 +5,20 @@ using UnityEngine.Rendering;
 
 public class PlayerInteraction : MonoBehaviour
 {
+    [SerializeField] private float pettingTime;
     [SerializeField] private CatGrabber catGrabber;
     [SerializeField] private Collider2D interactionTrigger;
-
+    [SerializeField] private PlayerController playerController;
     [SerializeField] private GameObject visualIndicator;
     [SerializeField] private float targetCheckingRate;
+    [SerializeField] private Animator playerAnimator;
 
     private HashSet<Transform> targets;
     private Transform closestTarget;
 
     private bool isLookingForTarget = false;
+
+
 
     private void Start()
     {
@@ -39,8 +43,14 @@ public class PlayerInteraction : MonoBehaviour
                     case "Enemy":
                         closestTarget.GetComponent<CatGrabber>().DropCatTowardsDirection(transform.position - closestTarget.position);
                         targets.Remove(closestTarget);
+
+                        playerAnimator.Play("Pet");
+
+                        Invoke(nameof(ReEnablePlayer), pettingTime);
                     break;
                 }
+
+                playerController.enabled = false;
             }
             else
             {
@@ -50,6 +60,12 @@ public class PlayerInteraction : MonoBehaviour
                 LookForTarget();
             }
         }
+    }
+
+    private void ReEnablePlayer()
+    {
+        playerController.enabled = true;
+        playerAnimator.Play("Idle");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

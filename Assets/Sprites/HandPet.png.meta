@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: d14d67718835afd479ce006967c9103c
+guid: 620e1e00bfa1662468be1aaf08eeb431
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3176023710244080206
-    second: priest2_v1_2_0
+      213: -7880632451672629905
+    second: HandPet_0
+  - first:
+      213: 1196614328661280930
+    second: HandPet_1
+  - first:
+      213: 4784502825388672096
+    second: HandPet_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -97,33 +103,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
     buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WindowsStoreApps
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -139,13 +119,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: priest2_v1_2_0
+      name: HandPet_0
       rect:
         serializedVersion: 2
         x: 1
         y: 0
-        width: 15
-        height: 16
+        width: 20
+        height: 18
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +134,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2b5fea8434f7ce3d0800000000000000
-      internalID: -3176023710244080206
+      spriteID: f6d13a0e98e52a290800000000000000
+      internalID: -7880632451672629905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HandPet_1
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 0
+        width: 19
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a88ff8546a3b9010800000000000000
+      internalID: 1196614328661280930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HandPet_2
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 0
+        width: 20
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 064052668f7f56240800000000000000
+      internalID: 4784502825388672096
       vertices: []
       indices: 
       edges: []
@@ -174,7 +198,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      priest2_v1_2_0: -3176023710244080206
+      HandPet_0: -7880632451672629905
+      HandPet_1: 1196614328661280930
+      HandPet_2: 4784502825388672096
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
