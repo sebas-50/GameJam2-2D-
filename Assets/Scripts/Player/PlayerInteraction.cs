@@ -35,7 +35,6 @@ public class PlayerInteraction : MonoBehaviour
                 {
                     case "Cat":
                         catGrabber.GrabCat(closestTarget.GetComponent<Cat>());
-
                         interactionTrigger.enabled = false;
                         StopLookingForTarget();
                     break;
@@ -43,14 +42,12 @@ public class PlayerInteraction : MonoBehaviour
                     case "Enemy":
                         closestTarget.GetComponent<CatGrabber>().DropCatTowardsDirection(transform.position - closestTarget.position);
                         targets.Remove(closestTarget);
-
                         playerAnimator.Play("Pet");
-
+                        playerController.enabled = false;
                         Invoke(nameof(ReEnablePlayer), pettingTime);
                     break;
                 }
 
-                playerController.enabled = false;
             }
             else
             {
