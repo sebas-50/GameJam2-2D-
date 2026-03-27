@@ -294,6 +294,7 @@ MonoBehaviour:
   player: {fileID: 0}
   sonrojo: {fileID: 6572550861592516683}
   caricia: {fileID: 941190582181699775}
+  col: {fileID: 4103785980242835268}
   distanceToPlayer: 0
   distanciaParaInteractuar: 2
 --- !u!61 &4660897280445621438
