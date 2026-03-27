@@ -34,12 +34,12 @@ public class PlayerInteraction : MonoBehaviour
 
                         interactionTrigger.enabled = false;
                         StopLookingForTarget();
-                        break;
+                    break;
 
                     case "Enemy":
                         closestTarget.GetComponent<CatGrabber>().DropCatTowardsDirection(transform.position - closestTarget.position);
                         targets.Remove(closestTarget);
-                        break;
+                    break;
                 }
             }
             else
