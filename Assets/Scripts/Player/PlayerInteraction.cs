@@ -43,11 +43,11 @@ public class PlayerInteraction : MonoBehaviour
                         closestTarget.GetComponent<CatGrabber>().DropCatTowardsDirection(transform.position - closestTarget.position);
                         targets.Remove(closestTarget);
                         playerAnimator.Play("Pet");
+                        playerController.enabled = false;
                         Invoke(nameof(ReEnablePlayer), pettingTime);
                     break;
                 }
 
-                playerController.enabled = false;
             }
             else
             {
