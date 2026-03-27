@@ -18,7 +18,8 @@ public class GameManager : MonoBehaviour
         menuOptionsRef = GameObject.Find("Game UI").GetComponent<MenuOptions>();
     }
 
-    private void Update() {
+    private void Update() 
+    {
         if (timerRef.timeRemainingInMinutes == 0) GameOver();
     }
 
@@ -33,25 +34,29 @@ public class GameManager : MonoBehaviour
         menuOptionsRef.PauseGame();
         menuOptionsRef.DisplayVictory();
         Debug.Log("You Won!");
+
+        AudioManager.Instance.PlayPlayerSFX("deliver_cat_02");
+        AudioManager.Instance.PlayCat("meow_02");
     }
 
     private IEnumerator GameOverCoroutine()
     {   
         //StartCoroutine(TurnMusicDown());   
         yield return new WaitForSecondsRealtime(transitionTime);
-        SceneManager.LoadScene(2);      
+        SceneManager.LoadScene(3);      
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Cat"))
         {
             catCounterRef.UpdateDisplay();
-            Destroy(other); // u otra lógica para disponer del gameobject del gato
+            other.gameObject.SetActive(false); // u otra lógica para disponer del gameobject del gato
             if (catCounterRef.isComplete)
             {
                 timerRef.isCounting = false;
                 YouWon();
             }
+            else AudioManager.Instance.PlayPlayerSFX("deliver_cat_01");
         }
     }
 

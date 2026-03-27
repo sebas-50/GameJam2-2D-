@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Cat : MonoBehaviour
 {
-    [SerializeField] CatsData catsData;
-
     private Collider2D collider;
     private Rigidbody2D rb;
 
@@ -13,12 +11,11 @@ public class Cat : MonoBehaviour
     {
         collider = GetComponent<Collider2D>();
         rb = GetComponent<Rigidbody2D>();
-
-        catsData.cats.Add(this);
     }
 
     public void ImpulseTowards(Vector2 direction, float force)
     {
+        rb.bodyType = RigidbodyType2D.Dynamic;
         rb.AddForce(direction.normalized * force, ForceMode2D.Impulse);
     }
 
@@ -27,14 +24,15 @@ public class Cat : MonoBehaviour
         transform.position = grabber.position + Vector3.up * verticalGrabOffset;
         transform.parent = grabber;
         collider.enabled = false;
-        Debug.Log("Padre seteado");
+
+        rb.linearVelocity = Vector2.zero;
+        rb.angularVelocity = 0f;
+        rb.bodyType = RigidbodyType2D.Kinematic;
     }
 
     public void SetAsUngrabbed()
     {
         transform.parent = null;
         collider.enabled = true;
-
-        Debug.Log("Padre removido");
     }
 }

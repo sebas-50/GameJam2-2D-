@@ -23,6 +23,9 @@ public class AutomaticCatGrabbingTrigger : MonoBehaviour
         {
             triggerCollider.enabled = false;
             catGrabber.GrabCat(collision.GetComponent<Cat>());
+
+            AudioManager.Instance.PlayEnemySFX("grab_cat_01");
+            AudioManager.Instance.PlayCat("meow_sad_01");
         }
     }
 

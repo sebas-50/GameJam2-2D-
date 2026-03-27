@@ -1,18 +1,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 public class PlayerInteraction : MonoBehaviour
 {
+    [SerializeField] private float pettingTime;
     [SerializeField] private CatGrabber catGrabber;
-
+    [SerializeField] private Collider2D interactionTrigger;
+    [SerializeField] private PlayerController playerController;
     [SerializeField] private GameObject visualIndicator;
     [SerializeField] private float targetCheckingRate;
+    [SerializeField] private Animator playerAnimator;
+
+
+    [SerializeField] private float minPurrTime;
+    [SerializeField] private float maxPurrTime;
 
     private HashSet<Transform> targets;
     private Transform closestTarget;
 
     private bool isLookingForTarget = false;
+
+    private Transform cacheTarget;
 
     private void Start()
     {
@@ -23,59 +33,117 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (context.started)
         {
-            switch (closestTarget.tag)
+            if (!catGrabber.hasCat)
             {
-                case "Cat":
-                    catGrabber.GrabCat(closestTarget.GetComponent<Cat>());
-                break;
+                switch (closestTarget.tag)
+                {
+                    case "Cat": // agarrar gato
+                        catGrabber.GrabCat(closestTarget.GetComponent<Cat>());
+                        interactionTrigger.enabled = false;
 
-                case "Enemy":
-                    closestTarget.GetComponent<CatGrabber>().DropCatTowardsDirection(transform.position - closestTarget.position);
-                break;
+                        AudioManager.Instance.PlayPlayerSFX("pickup_cat_01");
+                        AudioManager.Instance.PlayCat("meow_04");
+                        
+                        Purr();
 
+                        StopLookingForTarget();
+                        break;
+
+                    case "Enemy": // acariciar enemigo
+                        cacheTarget = closestTarget;
+                        closestTarget.GetComponent<CatGrabber>().DropCatTowardsDirection(transform.position - closestTarget.position);
+                        closestTarget.GetComponent<ControllerEnemy>().RecievePat();
+                        targets.Remove(closestTarget);
+
+                        AudioManager.Instance.PlayEnemySFX("loved_02");
+                        AudioManager.Instance.PlayPlayerSFX("hugging_01");
+                        AudioManager.Instance.PlayCat("angry_cat_02");
+
+                        playerAnimator.Play("Pet");
+                        playerController.enabled = false;
+                        Invoke(nameof(ResetPatting), pettingTime);
+                        break;
+                }
+
+            }
+            else // soltar gato
+            {
+                catGrabber.DropCatTowardsRandomDirection();
+                interactionTrigger.enabled = true;
+
+                LookForTarget();
+
+                CancelPurr();
             }
         }
     }
 
+    
+    private void CancelPurr()
+    {
+        CancelInvoke(nameof(Purr));
+    }
+
+    private void Purr()
+    {
+        AudioManager.Instance.PlayCat("purr_03");
+
+        Invoke(nameof(Purr), Random.Range(minPurrTime, maxPurrTime));
+    }
+
+    private void ResetPatting()
+    {
+        Debug.Log("Patting reset");
+        playerController.enabled = true;
+        playerAnimator.Play("Idle");
+
+        cacheTarget.GetComponent<ControllerEnemy>().StopPatting();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Hola");
-        if (collision.CompareTag("Enemy") || collision.CompareTag("Cat"))
+        if (collision.CompareTag("Cat") || (collision.CompareTag("Enemy") && collision.GetComponent<CatGrabber>().hasCat))
         {
-            Debug.Log("Entro en seleccion");
-
             targets.Add(collision.transform);
 
-            if (!isLookingForTarget)
-            {
-                isLookingForTarget = true;
-                InvokeRepeating(nameof(CheckAndSetClosestTarget), 0, targetCheckingRate);
-            }
+            LookForTarget();
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Debug.Log("Adios");
-        if (collision.CompareTag("Enemy") || collision.CompareTag("Cat"))
+        if (collision.CompareTag("Cat") || (collision.CompareTag("Enemy") && collision.GetComponent<CatGrabber>().hasCat))
         {
-            Debug.Log("Salió de seleccion");
             targets.Remove(collision.transform);
 
-            if (targets.Count < 1)
-            {
-                visualIndicator.transform.parent = null;
-                visualIndicator.SetActive(false);
+            StopLookingForTarget();
+        }
+    }
 
-                isLookingForTarget = false;
-                CancelInvoke(nameof(CheckAndSetClosestTarget));
-            }
+    private void LookForTarget()
+    {
+        if (!isLookingForTarget)
+        {
+            isLookingForTarget = true;
+            InvokeRepeating(nameof(CheckAndSetClosestTarget), 0, targetCheckingRate);
+        }
+    }
+
+    private void StopLookingForTarget()
+    {
+        if (targets.Count < 1 && isLookingForTarget)
+        {
+            visualIndicator.transform.SetParent(null);
+            visualIndicator.SetActive(false);
+
+            isLookingForTarget = false;
+            CancelInvoke(nameof(CheckAndSetClosestTarget));
         }
     }
 
     private void CheckAndSetClosestTarget()
     {
-        if (targets.Count == 0) return;
+        if (targets != null && targets.Count == 0) return;
 
         float minDistance = float.MaxValue;
 
