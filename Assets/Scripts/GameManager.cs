@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
         if (other.CompareTag("Cat"))
         {
             catCounterRef.UpdateDisplay();
-            Destroy(other.gameObject); // u otra lógica para disponer del gameobject del gato
+            other.gameObject.SetActive(false); // u otra lógica para disponer del gameobject del gato
             if (catCounterRef.isComplete)
             {
                 timerRef.isCounting = false;
