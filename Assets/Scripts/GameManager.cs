@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
     {   
         //StartCoroutine(TurnMusicDown());   
         yield return new WaitForSecondsRealtime(transitionTime);
-        SceneManager.LoadScene(2);      
+        SceneManager.LoadScene(3);      
     }
 
     private void OnTriggerEnter2D(Collider2D other) {

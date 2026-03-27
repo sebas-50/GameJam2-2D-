@@ -293,6 +293,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 586212215}
+        m_TargetAssemblyTypeName: MenuOptions, Assembly-CSharp
+        m_MethodName: PlayButonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: button_01
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &323925254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -449,7 +461,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuOptions
   transitionTime: 0
-  audioOnClick: {fileID: 0}
   victoryPanel: {fileID: 0}
   availablePanels:
   - {fileID: 1904484917}
@@ -2175,7 +2186,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 1
-      m_TileSpriteIndex: 1
+      m_TileSpriteIndex: 7
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2390,8 +2401,8 @@ Tilemap:
   m_TileSpriteArray:
   - m_RefCount: 128
     m_Data: {fileID: -179040268, guid: 0302b69dc867c2b409f197da9421645a, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: -964230217, guid: 0302b69dc867c2b409f197da9421645a, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 14
     m_Data: {fileID: 1340751846, guid: 0302b69dc867c2b409f197da9421645a, type: 3}
   - m_RefCount: 7
@@ -2402,8 +2413,8 @@ Tilemap:
     m_Data: {fileID: 1965493982, guid: 0302b69dc867c2b409f197da9421645a, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: -964230217, guid: 0302b69dc867c2b409f197da9421645a, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: 18264714, guid: 0302b69dc867c2b409f197da9421645a, type: 3}
   - m_RefCount: 1
@@ -3369,6 +3380,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 586212215}
+        m_TargetAssemblyTypeName: MenuOptions, Assembly-CSharp
+        m_MethodName: PlayButonSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: button_01
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1916809772
