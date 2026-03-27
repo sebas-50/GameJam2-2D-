@@ -6,11 +6,11 @@ public class MenuOptions : MonoBehaviour
 {
     public float transitionTime = 3f;
     private float timer;
-    public AudioClip audioOnClick;
     [SerializeField] private GameObject victoryPanel;
     [SerializeField]private GameObject[] availablePanels;
-
     
+    
+
     
     private void Start() {
         foreach(GameObject i in availablePanels)
@@ -83,14 +83,17 @@ public class MenuOptions : MonoBehaviour
         }
         victoryPanel.SetActive(true);
     }
-
-/*
+    
     public void PlayButonSound()
     {
-        AudioManager.Instance.PlaySFX(audioOnClick); 
+        if (AudioManager.Instance == null)
+        {
+            Debug.LogWarning("No existe AudioManager en la escena.");
+            return;
+        }
+        
+        AudioManager.Instance.PlayUI("button_01"); 
     }
-
-*/
 
 /*
     IEnumerator TurnMusicDown()
