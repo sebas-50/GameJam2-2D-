@@ -448,7 +448,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 014634e58e746eb4bbac22de4d7320b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuOptions
-  transitionTime: 3
+  transitionTime: 0
   audioOnClick: {fileID: 0}
   availablePanels:
   - {fileID: 1904484917}
