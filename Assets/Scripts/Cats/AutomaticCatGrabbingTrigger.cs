@@ -21,9 +21,8 @@ public class AutomaticCatGrabbingTrigger : MonoBehaviour
     {
         if (collision.CompareTag("Cat") && !catGrabber.hasCat)
         {
-            catGrabber.GrabCat(collision.GetComponent<Cat>());
-
             triggerCollider.enabled = false;
+            catGrabber.GrabCat(collision.GetComponent<Cat>());
         }
     }
 

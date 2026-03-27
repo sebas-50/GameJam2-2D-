@@ -23,7 +23,7 @@ MonoBehaviour:
   wave:
     upPeriod: 0.4
     downPeriod: 0.6
-    amplitude: 20
+    amplitude: 10
     upwardCurve:
       serializedVersion: 2
       m_Curve:

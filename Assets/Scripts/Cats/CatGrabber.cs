@@ -14,8 +14,7 @@ public class CatGrabber : MonoBehaviour
 
     private void Start()
     {
-        GetComponent<Collider2D>();
-        GetComponent<Rigidbody2D>();
+
     }
    
     public void GrabCat(Cat cat)
@@ -33,10 +32,12 @@ public class CatGrabber : MonoBehaviour
         grabbedCat.SetAsUngrabbed();
         grabbedCat = null;
 
+        Debug.Log("Gato Ungrabeado");
+
         onCatUngrabbed?.Invoke();
     }
 
-    public void DropCatTowards(Vector2 direction)
+    public void DropCatTowardsDirection(Vector2 direction)
     {
         grabbedCat.ImpulseTowards(direction.normalized, catDroppingForce);
         UngrabCat();
@@ -45,6 +46,6 @@ public class CatGrabber : MonoBehaviour
     [ContextMenu("Drop Cat")]
     public void DropCatTowardsRandomDirection()
     {
-        DropCatTowards(new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)));
+        DropCatTowardsDirection(new Vector2(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1f, 1f)));
     }
 }
