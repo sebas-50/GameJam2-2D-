@@ -5,11 +5,13 @@ TagManager:
   serializedVersion: 3
   tags:
   - Cat
+  - Enemy
+  - Obstacles
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Obstacles
   - Water
   - UI
   - 
