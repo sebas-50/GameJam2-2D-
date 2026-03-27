@@ -63,10 +63,11 @@ public class PlayerInteraction : MonoBehaviour
 
     private void ResetPatting()
     {
+        Debug.Log("Patting reset");
         playerController.enabled = true;
         playerAnimator.Play("Idle");
 
-        cacheTarget.GetComponent<ControllerEnemy>().RecievePat();
+        cacheTarget.GetComponent<ControllerEnemy>().StopPatting();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -112,7 +113,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void CheckAndSetClosestTarget()
     {
-        if (targets.Count == 0) return;
+        if (targets != null && targets.Count == 0) return;
 
         float minDistance = float.MaxValue;
 

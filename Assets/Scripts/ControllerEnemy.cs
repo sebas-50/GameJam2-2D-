@@ -24,13 +24,10 @@ public class ControllerEnemy : MonoBehaviour
 
     public void RecievePat()
     {
-        if (enemyPatfing != null && enemyPatfing.enabled)
-        {
-            enemyPatfing.enabled = false;
-            catGrabber.enabled = false;
-            sonrojo.SetActive(true);
-            CariciaActive();
-        }
+        enemyPatfing.enabled = false;
+        catGrabber.enabled = false;
+        sonrojo.SetActive(true);
+        CariciaActive();
     } 
 
     private void CariciaActive()
