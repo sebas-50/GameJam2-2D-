@@ -32,6 +32,8 @@ public class CatGrabber : MonoBehaviour
         grabbedCat.SetAsUngrabbed();
         grabbedCat = null;
 
+        Debug.Log("Gato Ungrabeado");
+
         onCatUngrabbed?.Invoke();
     }
 
