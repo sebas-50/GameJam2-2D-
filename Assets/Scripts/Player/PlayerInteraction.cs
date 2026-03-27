@@ -18,7 +18,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private bool isLookingForTarget = false;
 
-
+    private Transform cacheTarget;
 
     private void Start()
     {
@@ -40,11 +40,13 @@ public class PlayerInteraction : MonoBehaviour
                     break;
 
                     case "Enemy":
+                        cacheTarget = closestTarget;
                         closestTarget.GetComponent<CatGrabber>().DropCatTowardsDirection(transform.position - closestTarget.position);
+                        closestTarget.GetComponent<ControllerEnemy>().RecievePat();
                         targets.Remove(closestTarget);
                         playerAnimator.Play("Pet");
                         playerController.enabled = false;
-                        Invoke(nameof(ReEnablePlayer), pettingTime);
+                        Invoke(nameof(ResetPatting), pettingTime);
                     break;
                 }
 
@@ -59,10 +61,12 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
-    private void ReEnablePlayer()
+    private void ResetPatting()
     {
         playerController.enabled = true;
         playerAnimator.Play("Idle");
+
+        cacheTarget.GetComponent<ControllerEnemy>().RecievePat();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -21,23 +21,24 @@ public class ControllerEnemy : MonoBehaviour
     {
         if (enemyPatfing.enabled) distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
     }
-    public void Abrazito()
+
+    public void RecievePat()
     {
         if (enemyPatfing != null && enemyPatfing.enabled)
-        {            
-            if (distanceToPlayer < distanciaParaInteractuar)
-            {
-                enemyPatfing.enabled = false;
-                catGrabber.enabled = false;
-                sonrojo.SetActive(true);
-            }
+        {
+            enemyPatfing.enabled = false;
+            catGrabber.enabled = false;
+            sonrojo.SetActive(true);
+            CariciaActive();
         }
     } 
-    public void CariciaActive()
+
+    private void CariciaActive()
     {
         caricia.SetActive(true);
     }
-    public void CariciaOff()
+
+    public void StopPatting()
     {
         caricia.SetActive(false);
     }
