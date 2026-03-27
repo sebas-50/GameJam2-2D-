@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Prefabs/Player Olivia.prefab.meta
+guid: 537ddbc720a864d40b7bb527a7a5081c
+========
 guid: 50247456b4ba7b440a74dc1f41ed9bf8
+>>>>>>>> Develop:Assets/Prefabs/Game UI.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 
