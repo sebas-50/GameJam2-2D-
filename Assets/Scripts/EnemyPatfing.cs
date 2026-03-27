@@ -1,4 +1,5 @@
 using NavMeshPlus;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -84,7 +85,8 @@ public class EnemyPatfing : MonoBehaviour
         {
             if (automaticCatGrabbingTrigger != null)
             {
-                automaticCatGrabbingTrigger.GetComponent<Collider2D>().enabled = true;
+                automaticCatGrabbingTrigger.enabled = true;
+                catGrabber.enabled = true;
             }
             Debug.Log("Vamo a por el gato papu");
             navMeshAgent.SetDestination(cat.transform.position);
@@ -94,11 +96,7 @@ public class EnemyPatfing : MonoBehaviour
         {
             Huir();
             Debug.Log("Vamo a huir 1");
-            if (navMeshAgent.remainingDistance < 0.5f)
-            {
-                Huir();
-                Debug.Log("Vamo a huir 2");
-            }
+            
         }
         // Caso 3: No detecta al jugador Y tiene gato → vuelve a dejar el gato
         else if (!playerDetected && catGrabber != null && catGrabber.hasCat && posOriCat != null)
@@ -110,23 +108,15 @@ public class EnemyPatfing : MonoBehaviour
             {
                 catGrabber.DropCatTowardsRandomDirection();
                 Debug.Log("Gato devuelto papu");
-                if (automaticCatGrabbingTrigger != null)
-                {
-                    automaticCatGrabbingTrigger.GetComponent<Collider2D>().enabled = false;
-                }
+                automaticCatGrabbingTrigger.enabled = false;
+                catGrabber.enabled = false;
+                
             }
         }
         // Caso 4: No detecta al jugador Y no tiene gato → patrulla normal
         else if (waypoints != null && waypoints.Length > 0)
         {
             Patrullar();
-            if (
-                automaticCatGrabbingTrigger != null
-                && !automaticCatGrabbingTrigger.GetComponent<Collider2D>().enabled
-            )
-            {
-                automaticCatGrabbingTrigger.GetComponent<Collider2D>().enabled = true;
-            }
         }
     }
 
@@ -139,6 +129,7 @@ public class EnemyPatfing : MonoBehaviour
 
             if (Vector2.Distance(myTransform.position, currentWaypoint.transform.position) < 0.5f)
             {
+                Debug.Log("Vamo a patrullar al otro punto: " + currentWaypoint);
                 currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
             }
         }
@@ -177,6 +168,10 @@ public class EnemyPatfing : MonoBehaviour
         if (waypointElegido != null)
         {
             navMeshAgent.SetDestination(waypointElegido.transform.position);
+        }
+        if (navMeshAgent.remainingDistance < 0.5f && playerDetected && catGrabber != null && catGrabber.hasCat)
+        {
+            Huir();
         }
     }
 
