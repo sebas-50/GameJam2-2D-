@@ -311,6 +311,8 @@ MonoBehaviour:
   visualIndicator: {fileID: 8030166444039660786}
   targetCheckingRate: 0.2
   playerAnimator: {fileID: 5325654540694377652}
+  minPurrTime: 2
+  maxPurrTime: 10
 --- !u!114 &6866497059085263938
 MonoBehaviour:
   m_ObjectHideFlags: 0

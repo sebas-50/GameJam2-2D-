@@ -730,6 +730,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 65ed49d26ea8fc84db8f991418ea788b, type: 3}
   - {fileID: 8300000, guid: 4507717e448787b41987fa381cbeaa07, type: 3}
   - {fileID: 8300000, guid: cbfd6562cd6d63f4cb6de5d860abf2b1, type: 3}
+  - {fileID: 8300000, guid: 6ed5f6a72ef309f45a18f9f1092dba9c, type: 3}
   enemyClips:
   - {fileID: 8300000, guid: 1c85748f8ba527846954bba663cbc82a, type: 3}
   - {fileID: 8300000, guid: e95a2c8f5c4e53d409a05f493cb993c7, type: 3}
