@@ -27,11 +27,14 @@ public class Cat : MonoBehaviour
         transform.position = grabber.position + Vector3.up * verticalGrabOffset;
         transform.parent = grabber;
         collider.enabled = false;
+        Debug.Log("Padre seteado");
     }
 
     public void SetAsUngrabbed()
     {
         transform.parent = null;
         collider.enabled = true;
+
+        Debug.Log("Padre removido");
     }
 }
