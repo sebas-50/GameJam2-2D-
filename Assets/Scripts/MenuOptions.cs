@@ -18,7 +18,7 @@ public class MenuOptions : MonoBehaviour
             i.SetActive(false);
         }
         availablePanels[0].SetActive(true);
-        // AudioManager.Instance.PlayUI("main_menu_beginning");
+        AudioManager.Instance.PlayUI("main_menu_beginning");
     }
 
 //====================================================================================
@@ -45,7 +45,9 @@ public class MenuOptions : MonoBehaviour
     {   
         //StartCoroutine(TurnMusicDown());   
         yield return new WaitForSecondsRealtime(transitionTime);
-        SceneManager.LoadScene(sceneToLoad);      
+        AudioManager.Instance.PlayUI("fire_transtion");
+        SceneManager.LoadScene(sceneToLoad);
+        
     }
 
 
