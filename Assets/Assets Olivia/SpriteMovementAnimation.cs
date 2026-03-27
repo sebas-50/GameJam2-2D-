@@ -2,11 +2,10 @@ using UnityEngine;
 
 public class MovementAnimation : MonoBehaviour
 {
-    [SerializeField] private float verticalAmplitude;
-    [SerializeField] private float verticalFrecuency;
+    [SerializeField] private float stepsFrecuency;
 
+    [SerializeField] private float verticalAmplitude;
     [SerializeField] private float horizontalAmplitude;
-    [SerializeField] private float horizontalFrecuency;
 
     [SerializeField] private float angleAmplitude;
 
@@ -19,6 +18,7 @@ public class MovementAnimation : MonoBehaviour
 
     public void StopMoving()
     {
+        transform.localPosition = Vector3.zero;
         isMoving = false;
     }
 
@@ -38,8 +38,7 @@ public class MovementAnimation : MonoBehaviour
     {
         if (isMoving)
         {
-            transform.localPosition = new Vector3(verticalAmplitude * Mathf.Sin(horizontalFrecuency * Time.time), verticalAmplitude * Mathf.Abs(Mathf.Sin(verticalFrecuency * Time.time)), 0f);
+            transform.localPosition = new Vector3(horizontalAmplitude * Mathf.Sin(Mathf.PI/2f + stepsFrecuency * Time.time), verticalAmplitude * Mathf.Abs(Mathf.Sin(stepsFrecuency * Time.time)), 0f);
         }
-
     }
 }
