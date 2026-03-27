@@ -174,7 +174,7 @@ GameObject:
   - component: {fileID: 8426642570817757934}
   - component: {fileID: 4424131960447464007}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Player Olivia
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
