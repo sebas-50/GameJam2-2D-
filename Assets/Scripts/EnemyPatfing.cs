@@ -83,11 +83,6 @@ public class EnemyPatfing : MonoBehaviour
         // Caso 1: Detectó al jugador Y no tiene gato → va por el gato
         if (playerDetected && catGrabber != null && !catGrabber.hasCat && cat != null)
         {
-            if (automaticCatGrabbingTrigger != null)
-            {
-                automaticCatGrabbingTrigger.enabled = true;
-                catGrabber.enabled = true;
-            }
             Debug.Log("Vamo a por el gato papu");
             navMeshAgent.SetDestination(cat.transform.position);
         }
@@ -108,8 +103,6 @@ public class EnemyPatfing : MonoBehaviour
             {
                 catGrabber.DropCatTowardsRandomDirection();
                 Debug.Log("Gato devuelto papu");
-                automaticCatGrabbingTrigger.enabled = false;
-                catGrabber.enabled = false;
                 
             }
         }
