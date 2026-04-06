@@ -638,7 +638,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 12
   m_TargetDisplay: 0
 --- !u!224 &162915945
 RectTransform:
@@ -1854,7 +1854,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuOptions
   transitionTime: 3
-  audioOnClick: {fileID: 0}
   victoryPanel: {fileID: 0}
   availablePanels:
   - {fileID: 860415966}
@@ -4690,7 +4689,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
 --- !u!114 &1607021753
 MonoBehaviour:
   m_ObjectHideFlags: 0
