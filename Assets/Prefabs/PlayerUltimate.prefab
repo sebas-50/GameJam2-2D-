@@ -304,10 +304,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70555a49f27bde84da142204019ab375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteraction
+  pettingTime: 1
   catGrabber: {fileID: 2349687434930579872}
   interactionTrigger: {fileID: 8570708061675038282}
+  playerController: {fileID: 6866497059085263938}
   visualIndicator: {fileID: 8030166444039660786}
   targetCheckingRate: 0.2
+  playerAnimator: {fileID: 5325654540694377652}
+  minPurrTime: 2
+  maxPurrTime: 10
 --- !u!114 &6866497059085263938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,6 +326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   speed: 5
+  movementAnimation: {fileID: 3343351015175512781}
 --- !u!114 &2349687434930579872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -485,6 +491,7 @@ GameObject:
   - component: {fileID: 1871708280142850143}
   - component: {fileID: 3343351015175512781}
   - component: {fileID: 464182943668751340}
+  - component: {fileID: 5325654540694377652}
   m_Layer: 0
   m_Name: Visuals
   m_TagString: Untagged
@@ -519,10 +526,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e042d599947f2f49af7ced74a9e12af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovementAnimation
-  verticalAmplitude: 0.05
-  verticalFrecuency: 4
-  horizontalAmplitude: 0.05
-  horizontalFrecuency: 4
+  stepsFrecuency: 10
+  verticalAmplitude: 0.15
+  horizontalAmplitude: 0.15
   angleAmplitude: 1
   isMoving: 1
 --- !u!212 &464182943668751340
@@ -584,6 +590,28 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!95 &5325654540694377652
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6691631848990196837}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fd7354c00f6e04043a02caa0551b3f30, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7459524683555775705
 GameObject:
   m_ObjectHideFlags: 0

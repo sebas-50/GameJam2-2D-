@@ -5,16 +5,24 @@ using UnityEngine.Rendering;
 
 public class PlayerInteraction : MonoBehaviour
 {
+    [SerializeField] private float pettingTime;
     [SerializeField] private CatGrabber catGrabber;
     [SerializeField] private Collider2D interactionTrigger;
-
+    [SerializeField] private PlayerController playerController;
     [SerializeField] private GameObject visualIndicator;
     [SerializeField] private float targetCheckingRate;
+    [SerializeField] private Animator playerAnimator;
+
+
+    [SerializeField] private float minPurrTime;
+    [SerializeField] private float maxPurrTime;
 
     private HashSet<Transform> targets;
     private Transform closestTarget;
 
     private bool isLookingForTarget = false;
+
+    private Transform cacheTarget;
 
     private void Start()
     {
@@ -29,27 +37,67 @@ public class PlayerInteraction : MonoBehaviour
             {
                 switch (closestTarget.tag)
                 {
-                    case "Cat":
+                    case "Cat": // agarrar gato
                         catGrabber.GrabCat(closestTarget.GetComponent<Cat>());
-
                         interactionTrigger.enabled = false;
-                        StopLookingForTarget();
-                    break;
 
-                    case "Enemy":
+                        AudioManager.Instance.PlayPlayerSFX("pickup_cat_01");
+                        AudioManager.Instance.PlayCat("meow_04");
+                        
+                        Purr();
+
+                        StopLookingForTarget();
+                        break;
+
+                    case "Enemy": // acariciar enemigo
+                        cacheTarget = closestTarget;
                         closestTarget.GetComponent<CatGrabber>().DropCatTowardsDirection(transform.position - closestTarget.position);
+                        closestTarget.GetComponent<ControllerEnemy>().RecievePat();
                         targets.Remove(closestTarget);
-                    break;
+
+                        AudioManager.Instance.PlayEnemySFX("loved_02");
+                        AudioManager.Instance.PlayPlayerSFX("hugging_01");
+                        AudioManager.Instance.PlayCat("angry_cat_02");
+
+                        playerAnimator.Play("Pet");
+                        playerController.enabled = false;
+                        Invoke(nameof(ResetPatting), pettingTime);
+                        break;
                 }
+
             }
-            else
+            else // soltar gato
             {
                 catGrabber.DropCatTowardsRandomDirection();
                 interactionTrigger.enabled = true;
 
                 LookForTarget();
+
+                CancelPurr();
             }
         }
+    }
+
+    
+    private void CancelPurr()
+    {
+        CancelInvoke(nameof(Purr));
+    }
+
+    private void Purr()
+    {
+        AudioManager.Instance.PlayCat("purr_03");
+
+        Invoke(nameof(Purr), Random.Range(minPurrTime, maxPurrTime));
+    }
+
+    private void ResetPatting()
+    {
+        Debug.Log("Patting reset");
+        playerController.enabled = true;
+        playerAnimator.Play("Idle");
+
+        cacheTarget.GetComponent<ControllerEnemy>().StopPatting();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -95,7 +143,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void CheckAndSetClosestTarget()
     {
-        if (targets.Count == 0) return;
+        if (targets != null && targets.Count == 0) return;
 
         float minDistance = float.MaxValue;
 
