@@ -6,16 +6,12 @@ public class CatGrabber : MonoBehaviour
     public event Action onCatGrabbed;
     public event Action onCatUngrabbed;
 
-    [HideInInspector] public bool hasCat;
+    public bool hasCat;
+
     [SerializeField] private float catDroppingForce;
     [SerializeField] private float verticalCarryPositionOffset;
 
     private Cat grabbedCat;
-
-    private void Start()
-    {
-
-    }
    
     public void GrabCat(Cat cat)
     {
@@ -31,8 +27,6 @@ public class CatGrabber : MonoBehaviour
         hasCat = false;
         grabbedCat.SetAsUngrabbed();
         grabbedCat = null;
-
-        Debug.Log("Gato Ungrabeado");
 
         onCatUngrabbed?.Invoke();
     }
